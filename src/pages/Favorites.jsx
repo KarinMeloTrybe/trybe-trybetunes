@@ -20,6 +20,14 @@ useGetFavoriteSongs = async () => {
   });
 }
 
+removeSong = (index) => {
+  const {
+    favoritesList,
+  } = this.state;
+  favoritesList.splice(index, 1);
+  this.setState({ favoritesList: [...favoritesList] });
+};
+
 render() {
   const {
     favoritesList,
@@ -38,6 +46,7 @@ render() {
             trackName={ favorites.trackName }
             trackId={ favorites.trackId }
             albumList={ favoritesList }
+            removedSong={ this.removeSong }
           />
         ))
       )}

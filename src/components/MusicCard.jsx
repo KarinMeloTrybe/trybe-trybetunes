@@ -23,6 +23,7 @@ export default class MusicCard extends Component {
       const {
         albumList,
         index,
+        removedSong,
       } = this.props;
       if (target.checked) {
         this.setState({ checkedMusics: true, loading: true }, async () => {
@@ -36,6 +37,7 @@ export default class MusicCard extends Component {
             const { checkedMusics } = this.props;
             checkedMusics();
           });
+          removedSong(index);
         });
       }
     };
@@ -82,8 +84,10 @@ MusicCard.propTypes = {
   checkedMusics: PropTypes.func,
   index: PropTypes.number.isRequired,
   albumList: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  removedSong: PropTypes.func,
 };
 
 MusicCard.defaultProps = {
   checkedMusics: () => {},
+  removedSong: () => {},
 };
