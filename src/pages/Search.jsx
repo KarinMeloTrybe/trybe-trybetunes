@@ -44,7 +44,7 @@ state={
             />
 
             <button
-              type="submit"
+              type="button"
               data-testid="search-artist-button"
               disabled={ search.length < tamMin }
               onClick={ this.handleClick }
@@ -66,16 +66,16 @@ state={
                 to={ `/album/${collectionId}` }
               >
                 <img src={ artworkUrl100 } alt={ collectionName } />
-                <p>
-                  {
-                    artistName
-                  }
-                </p>
                 <h3>
                   {
                     collectionName
                   }
                 </h3>
+                <p>
+                  {
+                    artistName
+                  }
+                </p>
               </Link>
             ))
           )}
