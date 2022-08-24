@@ -1,13 +1,47 @@
 import React, { Component } from 'react';
 import Header from '../components/Header';
+import { getFavoriteSongs } from '../services/favoriteSongsAPI';
+import Loading from '../components/Loading';
+import MusicCard from '../components/MusicCard';
 
 export default class Favorites extends Component {
-  render() {
-    return (
-      <div data-testid="page-favorites">
-        Favorites
-        <Header />
-      </div>
-    );
-  }
+state={
+  favoritesList: [],
+  loading: false,
+};
+
+componentDidMount = () => this.useGetFavoriteSongs();
+
+useGetFavoriteSongs = async () => {
+  this.setState({ loading: true });
+  const list = await getFavoriteSongs();
+  this.setState({ favoritesList: list }, () => {
+    this.setState({ loading: false });
+  });
+}
+
+render() {
+  const {
+    favoritesList,
+    loading,
+  } = this.state;
+  return (
+    <div data-testid="page-favorites">
+      <Header />
+      {loading ? <Loading /> : (
+        favoritesList.map((favorites, index) => (
+          <MusicCard
+            key={ favorites.trackId }
+            index={ index }
+            previewUrl={ favorites.previewUrl }
+            useGetFavoriteSongs={ this.useGetFavoriteSongs }
+            trackName={ favorites.trackName }
+            trackId={ favorites.trackId }
+            albumList={ favoritesList }
+          />
+        ))
+      )}
+    </div>
+  );
+}
 }

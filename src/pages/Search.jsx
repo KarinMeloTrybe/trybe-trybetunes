@@ -21,7 +21,7 @@ state={
       e.preventDefault();
       this.setState({ loading: true });
       const albuns = await searchAlbumsAPI(search);
-      this.setState({ loading: false, albuns, artist: search });
+      this.setState({ loading: false, albuns, artist: search, search: '' });
     };
 
     render() {
@@ -41,6 +41,7 @@ state={
               type="text"
               data-testid="search-artist-input"
               onChange={ this.handleInput }
+              value={ search }
             />
 
             <button
